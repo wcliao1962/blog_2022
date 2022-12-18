@@ -30,3 +30,13 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::patch('posts/{post}', [AdminPostsController::class, 'update'])->name("posts.update");
     Route::delete('posts/{post}', [AdminPostsController::class, 'destroy'])->name("posts.destroy");
 });
+
+Route::middleware([
+    'auth:sanctum',
+    config('jetstream.auth_session'),
+    'verified'
+])->group(function () {
+    Route::get('/dashboard', function () {
+        return view('dashboard');
+    })->name('dashboard');
+});
