@@ -21,7 +21,11 @@ Route::get('/', [HomeController::class, 'index'])->name('home.index');
 Route::get('posts', [PostsController::class, 'index'])->name('posts.index');
 Route::get('posts/{post}', [PostsController::class, 'show'])->name('posts.show');
 
-Route::prefix('admin')->name('admin.')->group(function () {
+Route::prefix('admin')->name('admin.')->middleware([
+    'auth:sanctum',
+    config('jetstream.auth_session'),
+    'verified'
+])->group(function () {
     Route::get('/', [AdminHomeController::class, 'index'])->name("home.index");
     Route::get('posts', [AdminPostsController::class, 'index'])->name("posts.index");
     Route::get('posts/create', [AdminPostsController::class, 'create'])->name("posts.create");
