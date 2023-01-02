@@ -20,4 +20,10 @@ class Post extends Model
         'title' => 'string',
         'content' => 'string',
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+
+    }
 }
