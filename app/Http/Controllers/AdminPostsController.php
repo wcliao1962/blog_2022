@@ -9,7 +9,8 @@ class AdminPostsController extends Controller
 {
     public function index()
     {
-        $posts = Post::orderBy('id', 'DESC')->get();
+        //$posts = Post::orderBy('id', 'DESC')->get();
+        $posts = auth()->user()->posts()->latest()->get();
 
         $data = [
             'posts' => $posts,
@@ -32,7 +33,9 @@ class AdminPostsController extends Controller
         ]);
 
 
-        Post::create($request->all());
+//        Post::create($request->all());
+
+        auth()->user()->posts()->create($request->all());
 
         return redirect()->route('admin.posts.index');
     }
