@@ -18,7 +18,8 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', [HomeController::class, 'index'])->name('home.index');
-Route::get('posts', [PostsController::class, 'index'])->name('posts.index');
+
+Route::get('users/{user}/posts', [PostsController::class, 'index'])->name('posts.index');
 Route::get('posts/{post}', [PostsController::class, 'show'])->name('posts.show');
 
 Route::prefix('admin')->name('admin.')->middleware([
